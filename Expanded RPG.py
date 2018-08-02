@@ -28,7 +28,7 @@ def showExits(d):
     if isinstance(v, dict):
       showExits(v)
     else:
-      if(k == 'item'):
+      if(k == 'item' or 'monster'):
         continue
       print('\t' * 2, "{0} -> {1}".format(k, v))
 
@@ -63,12 +63,12 @@ rooms = {
             'Kitchen' : {
                   'north' : 'Hall',
                   'east' : 'Dining Room',
-                  'item' : 'spoon'
+                  'item' : 'frying-pan'
                 },
             'Living Room' : {
               'east' : "Hall",
               'north' : "Library",
-              'item' : 'monster'
+              'monster' : 'true'
             },
             "Library" : {
               'south' : 'Living Room',
@@ -116,9 +116,12 @@ while True:
       #set the current room to the new room
       currentRoom = rooms[currentRoom][move[1]]
       #if you enter a room with a monster in it then the game ends
-      if 'item' in rooms[currentRoom] and rooms[currentRoom]['item'] == 'monster':
-        print('A monster has caught you!!!! GAME OVER!!!! :-(')
-        break
+      if 'monster' in rooms[currentRoom] and rooms[currentRoom]['monster'] == 'true':
+        if 'frying pan' in inventory:
+         print('There is a monster in the room!! Luckily you have a frying pan (who knew right?) and you knock the monster out')
+        else:
+         print('A monster has caught you!!!! GAME OVER!!!! :-(')
+         break
       if currentRoom == 'Garden' and 'chest' in inventory and 'key' in inventory:
         print('YOU HAVE WON!!!!! You escaped the house and unlocked the chest')
         break
