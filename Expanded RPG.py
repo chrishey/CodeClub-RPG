@@ -5,16 +5,19 @@
 # game ends if you enter a room with a monster
 
 # possible enhancements
-# 1. If you have some sort of item you can fight the monster, different monsters, different itemss to defeat them
+# 1. If you have some sort of item you can fight the monster, different monsters, different items to defeat them
 # 2. Unlocking the chest with the key wins you the game, not just arriving in a room
 # 3. If you find the porg it will warn you of rooms with monsters
-
+# 4. Only allowed to carry 2 items? So introduce that restriction and the ability to drop an item and update the rooms dictionary so it remains in there
 
 def showInstructions():
   #print a main menu and the commands
   print('''
 RPG Game
 ========
+
+Find the key and the chest and get to the garden, watch out for the monsters!!!
+
 Commands:
   go [direction]
   get [item]
