@@ -49,7 +49,7 @@ def showStatus():
   if "item" in rooms[currentRoom]:
     print('You see a ' + rooms[currentRoom]['item'])
 
-  if "companion" in rooms[currentRoom]:
+  if "companion" in rooms[currentRoom] and rooms[currentRoom]['companion'] not in companions:
     print('You encounter a ' + rooms[currentRoom]["companion"] + ' who wants to help you escape.')
   print("---------------------------")
 
@@ -128,14 +128,14 @@ while True:
       nextRoom = rooms[currentRoom][move[1]]
       # if they have the porg and there is a monster then alert them!
       if "porg" in companions and 'monster' in rooms[nextRoom] and rooms[nextRoom]['monster'] == True and 'alerted' in rooms[nextRoom] and rooms[nextRoom]['alerted'] == False:
-        print('Your Porg friend is trying to tell you something....THERE IS A MONSTER IN THE ROOM!!')
+        print('Your Porg friend is trying to tell you something....THERE IS A MONSTER IN THAT THE ROOM!!')
+        print('You shut the door and hope it didnt see you')
         rooms[nextRoom]['alerted']=True
-        break
-
-      #set the current room to the new room
-      currentRoom = rooms[currentRoom][move[1]]
-      #if you enter a room with a monster in it then the game ends
-      if 'monster' in rooms[currentRoom] and rooms[currentRoom]['monster'] == True:
+      else:
+       #set the current room to the new room
+       currentRoom = rooms[currentRoom][move[1]]
+       #if you enter a room with a monster in it then the game ends
+       if 'monster' in rooms[currentRoom] and rooms[currentRoom]['monster'] == True:
         if 'frying pan' in inventory:
          print('There is a monster in the room!! Luckily you have a frying pan (who knew right?) and you knock the monster out')
         else:
