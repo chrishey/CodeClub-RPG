@@ -16,7 +16,7 @@ def showInstructions():
 RPG Game
 ========
 
-Find the key and the chest and get to the garden, watch out for the monsters!!!
+Find the key and the chest then get to the garden, watch out for the monsters!!!
 
 Commands:
   go [direction]
@@ -28,7 +28,7 @@ def showExits(d):
     if isinstance(v, dict):
       showExits(v)
     else:
-      if(k == 'item' or 'monster'):
+      if(k == 'item' or k == 'monster' or k == 'companion'):
         continue
       print('\t' * 2, "{0} -> {1}".format(k, v))
 
@@ -43,13 +43,20 @@ def showStatus():
   
   #print the current inventory
   print('Inventory : ' + str(inventory))
+  print('Companions : ' + str(companions))
+
   #print an item if there is one
   if "item" in rooms[currentRoom]:
     print('You see a ' + rooms[currentRoom]['item'])
+
+  if "companion" in rooms[currentRoom]:
+    print('You encounter a ' + rooms[currentRoom]["companion"] + ' who wants to help you escape.')
   print("---------------------------")
 
 #an inventory, which is initially empty
 inventory = []
+
+companions = []
 
 #a dictionary linking a room to other rooms
 rooms = {
@@ -77,7 +84,8 @@ rooms = {
             },
             "Dining Room" : {
               'west' : 'Kitchen',
-              'north' : 'Study'
+              'north' : 'Study',
+              'companion' : 'porg'
             },
             "Study" : {
               'west' : 'Library',
@@ -98,6 +106,9 @@ showInstructions()
 while True:
 
   showStatus()
+
+  if "companion" in rooms[currentRoom]:
+    companions += [rooms[currentRoom]["companion"]]
 
   #get the player's next 'move'
   #.split() breaks it up into an list array
