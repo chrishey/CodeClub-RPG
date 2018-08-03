@@ -75,7 +75,8 @@ rooms = {
             'Living Room' : {
               'east' : "Hall",
               'north' : "Library",
-              'monster' : 'true'
+              'monster' : True,
+              'alerted' : False
             },
             "Library" : {
               'south' : 'Living Room',
@@ -124,10 +125,17 @@ while True:
   if move[0] == 'go':
     #check that they are allowed wherever they want to go
     if move[1] in rooms[currentRoom]:
+      nextRoom = rooms[currentRoom][move[1]]
+      # if they have the porg and there is a monster then alert them!
+      if "porg" in companions and 'monster' in rooms[nextRoom] and rooms[nextRoom]['monster'] == True and 'alerted' in rooms[nextRoom] and rooms[nextRoom]['alerted'] == False:
+        print('Your Porg friend is trying to tell you something....THERE IS A MONSTER IN THE ROOM!!')
+        rooms[nextRoom]['alerted']=True
+        break
+
       #set the current room to the new room
       currentRoom = rooms[currentRoom][move[1]]
       #if you enter a room with a monster in it then the game ends
-      if 'monster' in rooms[currentRoom] and rooms[currentRoom]['monster'] == 'true':
+      if 'monster' in rooms[currentRoom] and rooms[currentRoom]['monster'] == True:
         if 'frying pan' in inventory:
          print('There is a monster in the room!! Luckily you have a frying pan (who knew right?) and you knock the monster out')
         else:
@@ -155,4 +163,3 @@ while True:
     else:
       #tell them they can't get it
       print('Can\'t get ' + move[1] + '!')
-
