@@ -28,7 +28,7 @@ def showExits(d):
     if isinstance(v, dict):
       showExits(v)
     else:
-      if(k == 'item' or k == 'monster' or k == 'companion'):
+      if(k == 'item' or k == 'monster' or k == 'companion' or k === 'alerted'):
         continue
       print('\t' * 2, "{0} -> {1}".format(k, v))
 
@@ -136,7 +136,7 @@ while True:
        currentRoom = rooms[currentRoom][move[1]]
        #if you enter a room with a monster in it then the game ends
        if 'monster' in rooms[currentRoom] and rooms[currentRoom]['monster'] == True:
-        if 'frying pan' in inventory:
+        if 'frying-pan' in inventory:
          print('There is a monster in the room!! Luckily you have a frying pan (who knew right?) and you knock the monster out')
         else:
          print('A monster has caught you!!!! GAME OVER!!!! :-(')
