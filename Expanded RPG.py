@@ -95,6 +95,17 @@ def showStatus():
 def porgAlert():
   return "porg" in companions and 'monster' in rooms[nextRoom] and rooms[nextRoom]['monster'] == True and 'alerted' in rooms[nextRoom] and rooms[nextRoom]['alerted'] == False
 
+def monsterAttack():
+  if 'monster' in rooms[currentRoom] and rooms[currentRoom]['monster'] == True:
+    if 'frying-pan' in inventory:
+      print('There is a monster in the room!! Luckily you have a frying pan (who knew right?) and you knock the monster out')
+      return True
+    else:
+      print('A monster has caught you!!!! GAME OVER!!!! :-(')
+      return False
+  
+  return True
+
 #an inventory, which is initially empty
 inventory = []
 
@@ -140,11 +151,7 @@ while True:
        #set the current room to the new room
        currentRoom = rooms[currentRoom][move[1]]
        #if you enter a room with a monster in it then the game ends
-       if 'monster' in rooms[currentRoom] and rooms[currentRoom]['monster'] == True:
-        if 'frying-pan' in inventory:
-         print('There is a monster in the room!! Luckily you have a frying pan (who knew right?) and you knock the monster out')
-        else:
-         print('A monster has caught you!!!! GAME OVER!!!! :-(')
+       if monsterAttack() == False:
          break
       if currentRoom == 'Garden' and 'chest' in inventory and 'key' in inventory:
         print('YOU HAVE WON!!!!! You escaped the house and unlocked the chest')
