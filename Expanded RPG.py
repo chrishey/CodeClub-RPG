@@ -6,7 +6,7 @@
 
 # possible enhancements
 # 1. If you have some sort of item you can fight the monster, different monsters, different items to defeat them
-# 2. Unlocking the chest with the key wins you the game, not just arriving in a room
+# 2. Unlocking the chest with the key wins you the game, not just arriving in a room, add new keywords for 'use', 'with'
 # 3. If you find the porg it will warn you of rooms with monsters
 # 4. Only allowed to carry 2 items? So introduce that restriction and the ability to drop an item and update the rooms dictionary so it remains in there
 
@@ -23,44 +23,8 @@ Commands:
   get [item]
 ''')
 
-def showExits(d):
-  for k, v in d.items():
-    if isinstance(v, dict):
-      showExits(v)
-    else:
-      if(k == 'item' or k == 'monster' or k == 'companion' or k === 'alerted'):
-        continue
-      print('\t' * 2, "{0} -> {1}".format(k, v))
-
-
-def showStatus():
-  #print the player's current status
-  print('---------------------------')
-  print('You are in the ' + currentRoom)
-  print('Your exits are : ')
-  
-  showExits(rooms[currentRoom])
-  
-  #print the current inventory
-  print('Inventory : ' + str(inventory))
-  print('Companions : ' + str(companions))
-
-  #print an item if there is one
-  if "item" in rooms[currentRoom]:
-    print('You see a ' + rooms[currentRoom]['item'])
-
-  if "companion" in rooms[currentRoom] and rooms[currentRoom]['companion'] not in companions:
-    print('You encounter a ' + rooms[currentRoom]["companion"] + ' who wants to help you escape.')
-  print("---------------------------")
-
-#an inventory, which is initially empty
-inventory = []
-
-companions = []
-
-#a dictionary linking a room to other rooms
-rooms = {
-
+def buildRooms():
+  return {
             'Hall' : { 
                   'south' : 'Kitchen',
                   'west' : 'Living Room',
@@ -98,6 +62,47 @@ rooms = {
 
          }
 
+def showExits(d):
+  for k, v in d.items():
+    if isinstance(v, dict):
+      showExits(v)
+    else:
+      if(k == 'item' or k == 'monster' or k == 'companion' or k == 'alerted'):
+        continue
+      print('\t' * 2, "{0} -> {1}".format(k, v))
+
+
+def showStatus():
+  #print the player's current status
+  print('---------------------------')
+  print('You are in the ' + currentRoom)
+  print('Your exits are : ')
+  
+  showExits(rooms[currentRoom])
+  
+  #print the current inventory
+  print('Inventory : ' + str(inventory))
+  print('Companions : ' + str(companions))
+
+  #print an item if there is one
+  if "item" in rooms[currentRoom]:
+    print('You see a ' + rooms[currentRoom]['item'])
+
+  if "companion" in rooms[currentRoom] and rooms[currentRoom]['companion'] not in companions:
+    print('You encounter a ' + rooms[currentRoom]["companion"] + ' who wants to help you escape.')
+  print("---------------------------")
+
+def porgAlert():
+  return "porg" in companions and 'monster' in rooms[nextRoom] and rooms[nextRoom]['monster'] == True and 'alerted' in rooms[nextRoom] and rooms[nextRoom]['alerted'] == False
+
+#an inventory, which is initially empty
+inventory = []
+
+companions = []
+
+#a dictionary linking a room to other rooms
+rooms = buildRooms()
+
 #start the player in the Hall
 currentRoom = 'Hall'
 
@@ -127,7 +132,7 @@ while True:
     if move[1] in rooms[currentRoom]:
       nextRoom = rooms[currentRoom][move[1]]
       # if they have the porg and there is a monster then alert them!
-      if "porg" in companions and 'monster' in rooms[nextRoom] and rooms[nextRoom]['monster'] == True and 'alerted' in rooms[nextRoom] and rooms[nextRoom]['alerted'] == False:
+      if porgAlert():
         print('Your Porg friend is trying to tell you something....THERE IS A MONSTER IN THAT THE ROOM!!')
         print('You shut the door and hope it didnt see you')
         rooms[nextRoom]['alerted']=True
