@@ -9,6 +9,7 @@
 # 2. Unlocking the chest with the key wins you the game, not just arriving in a room, add new keywords for 'use', 'with'
 # 3. If you find the porg it will warn you of rooms with monsters
 # 4. Only allowed to carry 2 items? So introduce that restriction and the ability to drop an item and update the rooms dictionary so it remains in there
+# 5. Add an upstairs
 
 def showInstructions():
   #print a main menu and the commands
@@ -92,8 +93,13 @@ def showStatus():
     print('You encounter a ' + rooms[currentRoom]["companion"] + ' who wants to help you escape.')
   print("---------------------------")
 
-def porgAlert():
+def monsterDetected():
   return "porg" in companions and 'monster' in rooms[nextRoom] and rooms[nextRoom]['monster'] == True and 'alerted' in rooms[nextRoom] and rooms[nextRoom]['alerted'] == False
+
+def porgAlert():
+ print('Your Porg friend is trying to tell you something....THERE IS A MONSTER IN THAT THE ROOM!!')
+ print('You shut the door and hope it didnt see you')
+ rooms[nextRoom]['alerted']=True
 
 def monsterAttack():
   if 'monster' in rooms[currentRoom] and rooms[currentRoom]['monster'] == True:
@@ -143,10 +149,8 @@ while True:
     if move[1] in rooms[currentRoom]:
       nextRoom = rooms[currentRoom][move[1]]
       # if they have the porg and there is a monster then alert them!
-      if porgAlert():
-        print('Your Porg friend is trying to tell you something....THERE IS A MONSTER IN THAT THE ROOM!!')
-        print('You shut the door and hope it didnt see you')
-        rooms[nextRoom]['alerted']=True
+      if monsterDetected():
+        porgAlert()
       else:
        #set the current room to the new room
        currentRoom = rooms[currentRoom][move[1]]
