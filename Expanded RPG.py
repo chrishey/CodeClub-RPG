@@ -22,6 +22,8 @@ Find the key and the chest then get to the garden, watch out for the monsters!!!
 Commands:
   go [direction]
   get [item]
+  use [item]
+  with [item]
 ''')
 
 def buildRooms():
@@ -120,6 +122,8 @@ inventory = []
 
 companions = []
 
+usedObject = ''
+
 #a dictionary linking a room to other rooms
 rooms = buildRooms()
 
@@ -185,3 +189,14 @@ while True:
     else:
       #tell them they can't get it
       print('Can\'t get ' + move[1] + '!')
+
+  if move[0] == 'use':
+    print('What do you want to use the ' + move[1] + ' with?')
+    usedObject = move[1]
+
+  if move[0] == "with":
+    if usedObject != '':
+      print('You use ' + usedObject + ' with ' + move[1])
+      usedObject = ''
+    else:
+      print('What object are you going to use with this? Try the using keyword first.')
