@@ -115,7 +115,11 @@ def monsterAttack():
   return True
 
 def gameComplete():
-  print('YOU HAVE WON!!!!! You escaped the house and unlocked the chest')
+  if(currentRoom == 'Garden' and usedObject == 'key' and move[1] == 'chest'):
+    print('YOU HAVE WON!!!!! You escaped the house and unlocked the chest')
+    return True
+    
+  return False
 
 #an inventory, which is initially empty
 inventory = []
@@ -197,6 +201,8 @@ while True:
   if move[0] == "with":
     if usedObject != '':
       print('You use ' + usedObject + ' with ' + move[1])
+      if gameComplete():
+        break
       usedObject = ''
     else:
       print('What object are you going to use with this? Try the using keyword first.')
