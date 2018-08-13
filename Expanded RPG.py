@@ -30,7 +30,7 @@ Commands:
 def buildRooms():
   return {
             'Hall' : {
-                  'north' : 'Landing'
+                  'north' : 'Landing',
                   'south' : 'Kitchen',
                   'west' : 'Living Room',
                   'item' : 'key'
@@ -39,7 +39,7 @@ def buildRooms():
             'Kitchen' : {
                   'north' : 'Hall',
                   'east' : 'Dining Room',
-                  'item' : 'frying-pan'
+                  'item' : 'pan'
                 },
             'Living Room' : {
               'east' : "Hall",
@@ -137,12 +137,29 @@ def gameComplete():
     
   return False
 
+def addItemToInventory(inventory):
+  #add the item to their inventory
+  inventory += [move[1]]
+  #display a helpful message
+  print(move[1] + ' got!')
+  #delete the item from the room
+  del rooms[currentRoom]['item']
+
+  if(len(inventory) > maxInventoryItems):
+    # drop the first item in the inventory
+    print('You can only carry ' + str(maxInventoryItems) + ' items in your inventory')
+    print('You drop the ' + inventory[0] + ' in this room')
+    rooms[currentRoom]['item'] = inventory[0]
+    del inventory[0]
+
 #an inventory, which is initially empty
 inventory = []
 
 companions = []
 
 usedObject = ''
+
+maxInventoryItems = 2
 
 #a dictionary linking a room to other rooms
 rooms = buildRooms()
@@ -199,12 +216,7 @@ while True:
   if move[0] == 'get' :
     #if the room contains an item, and the item is the one they want to get
     if "item" in rooms[currentRoom] and move[1] in rooms[currentRoom]['item']:
-      #add the item to their inventory
-      inventory += [move[1]]
-      #display a helpful message
-      print(move[1] + ' got!')
-      #delete the item from the room
-      del rooms[currentRoom]['item']
+      addItemToInventory(inventory)
     #otherwise, if the item isn't there to get
     else:
       #tell them they can't get it
