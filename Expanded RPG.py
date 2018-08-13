@@ -10,6 +10,7 @@
 # 3. If you find the porg it will warn you of rooms with monsters
 # 4. Only allowed to carry 2 items? So introduce that restriction and the ability to drop an item and update the rooms dictionary so it remains in there
 # 5. Add an upstairs
+# 6. Add some tasks to be able to reveal/find the key and chest
 
 def showInstructions():
   #print a main menu and the commands
@@ -28,7 +29,8 @@ Commands:
 
 def buildRooms():
   return {
-            'Hall' : { 
+            'Hall' : {
+                  'north' : 'Landing'
                   'south' : 'Kitchen',
                   'west' : 'Living Room',
                   'item' : 'key'
@@ -61,6 +63,20 @@ def buildRooms():
             },
             "Garden" : {
               'south' : 'Library'
+            },
+            "Landing" : {
+              'south' : 'Hall',
+              'west' : 'Master Bedroom',
+              'east' : 'Bathroom'
+            },
+            "Master Bedroom" : {
+              'east' : 'Landing',
+              'monster' : True,
+              'alerted' : False
+            },
+            "Bathroom" : {
+              'west' : 'Landing',
+              'item' : 'bottle'
             }
 
          }
