@@ -121,7 +121,7 @@ def porgAlert():
 
 def monsterAttack():
   if 'monster' in rooms[currentRoom] and rooms[currentRoom]['monster'] == True:
-    if 'frying-pan' in inventory:
+    if 'pan' in inventory:
       print('There is a monster in the room!! Luckily you have a frying pan (who knew right?) and you knock the monster out')
       return True
     else:
