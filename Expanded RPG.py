@@ -76,7 +76,7 @@ def buildRooms():
             },
             "Bathroom" : {
               'west' : 'Landing',
-              'item' : 'bottle'
+              'item' : 'medicine'
             }
 
          }
