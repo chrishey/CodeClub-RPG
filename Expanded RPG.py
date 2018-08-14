@@ -118,6 +118,11 @@ def porgAlert():
  print('Your Porg friend is trying to tell you something....THERE IS A MONSTER IN THAT THE ROOM!!')
  print('You shut the door and hope it didnt see you')
  rooms[nextRoom]['alerted']=True
+ porg['health'] -= 10
+ print('Oh no! Your porg friend has been weakened by the monster.')
+
+ if(porg['health'] <= porg['min-health']):
+   print('Your porg friend is poorly, you need to give it some medicine.')
 
 def monsterAttack():
   if 'monster' in rooms[currentRoom] and rooms[currentRoom]['monster'] == True:
@@ -163,6 +168,11 @@ maxInventoryItems = 2
 
 #a dictionary linking a room to other rooms
 rooms = buildRooms()
+
+porg = {
+  'health' : 50,
+  'min-health' : 20
+}
 
 #start the player in the Hall
 currentRoom = 'Hall'
