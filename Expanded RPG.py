@@ -118,7 +118,7 @@ def porgAlert():
  print('Your Porg friend is trying to tell you something....THERE IS A MONSTER IN THAT THE ROOM!!')
  print('You shut the door and hope it didnt see you')
  rooms[nextRoom]['alerted']=True
- porg['health'] -= 10
+ porg['health'] -= 5
  print('Oh no! Your porg friend has been weakened by the monster.')
 
  if(porg['health'] <= porg['min-health']):
@@ -170,8 +170,8 @@ maxInventoryItems = 2
 rooms = buildRooms()
 
 porg = {
-  'health' : 50,
-  'min-health' : 20
+  'health' : 10,
+  'min-health' : 5
 }
 
 #start the player in the Hall
