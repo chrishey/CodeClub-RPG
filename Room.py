@@ -1,6 +1,7 @@
 class Room():
- def __init__(self, north, south, west, east, item, monster, alerted):
+ def __init__(self, name, north, south, west, east, item, monster, alerted):
      super().__init__()
+     self.name = name
      self.north = north
      self.south = south
      self.west = west
