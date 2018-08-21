@@ -28,58 +28,18 @@ Commands:
 ''')
 
 def buildRooms():
-  return {
-            'Hall' : {
-                  'north' : 'Landing',
-                  'south' : 'Kitchen',
-                  'west' : 'Living Room',
-                  'item' : 'key'
-                },
+ rooms =[Room('Hall', 'Landing', 'Kitchen', 'Living Room', '', 'key', '', False, False)]
+ rooms.append(Room('Kitchen', 'Hall', '', '', 'Dining Room', 'pan', '', False, False))
+ rooms.append(Room('Living Room', 'Library', '', '', 'Hall', '', '', True, False))
+ rooms.append(Room('Library', 'Garden', 'Living Room', '', '', 'chest', '', False, False))
+ rooms.append(Room('Dining Room', 'Study', '', 'Kitchen', '', '', 'porg', False, False))
+ rooms.append(Room('Study', '', 'Dining Room', 'Library', '', '', '', False, False))
+ rooms.append(Room('Garden', '', 'Library', '', '', '', '', False, False))
+ rooms.append(Room('Landing', '', 'Hall', 'Master Bedroom', 'Bathroom', '', '', False, False))
+ rooms.append(Room('Master Bedroom', '', '', '', 'Landing', '', True, False))
+ rooms.append(Room('Bathroom', '', '', 'Landing', '', 'medicine', False, False))
 
-            'Kitchen' : {
-                  'north' : 'Hall',
-                  'east' : 'Dining Room',
-                  'item' : 'pan'
-                },
-            'Living Room' : {
-              'east' : "Hall",
-              'north' : "Library",
-              'monster' : True,
-              'alerted' : False
-            },
-            "Library" : {
-              'south' : 'Living Room',
-              'north' : 'Garden',
-              'item' : 'chest'
-            },
-            "Dining Room" : {
-              'west' : 'Kitchen',
-              'north' : 'Study',
-              'companion' : 'porg'
-            },
-            "Study" : {
-              'west' : 'Library',
-              'south' : 'Dining Room'
-            },
-            "Garden" : {
-              'south' : 'Library'
-            },
-            "Landing" : {
-              'south' : 'Hall',
-              'west' : 'Master Bedroom',
-              'east' : 'Bathroom'
-            },
-            "Master Bedroom" : {
-              'east' : 'Landing',
-              'monster' : True,
-              'alerted' : False
-            },
-            "Bathroom" : {
-              'west' : 'Landing',
-              'item' : 'medicine'
-            }
-
-         }
+return rooms
 
 def showExits(d):
   for k, v in d.items():
