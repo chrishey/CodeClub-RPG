@@ -215,7 +215,9 @@ while True:
         if 'chest' in inventory and 'key' in inventory:
           print('You stand in the garden having escaped the house...what do you do now?')
         else:
-          missingItem = 'key' if 'key' in inventory else 'chest'
+          missingItem = 'key'
+          if 'key' in inventory:
+           missingItem = 'chest'
           print('You have escaped the house, but the game is not complete, you need to return and find the ' + missingItem)
       
     #there is no door (link) to the new room
